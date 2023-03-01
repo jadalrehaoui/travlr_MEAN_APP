@@ -31,8 +31,12 @@ The ```routes/index.js``` file holds all the routes we have right now, it import
 
 The ```views``` are files of type hbs (Handlebars), personally I would prefer ```ejs``` as it is easier and has more functionality. 
 
-The ```layout.hbs``` is the them, or we can say the header and footer of each page. 
+The ```layout.hbs``` is the theme, or we can say the header and footer of each page.
+* I added ```partials``` to the views and separated the header and footer to have a cleaner code.
 
 The ```static_theme``` folder holds ```html``` pages that are not used in the project but they are the template we chose. 
 
-
+# Data
+The data folder is built in the early stages of the development of this project. It was used to mimic the database functionality to be added later on. 
+For now it only has 3 types of records ```rooms, meals, trips``` as jsons, because we are going to get JSON objects from the nosql database to be implemented later on. 
+ 
