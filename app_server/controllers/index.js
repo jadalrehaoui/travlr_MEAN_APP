@@ -1,5 +1,5 @@
 module.exports = {
-    main: require("./main"),
+    home: require("./home"),
     travel: require("./travel"),
     meals: require("./meals"),
     news: require("./news"),

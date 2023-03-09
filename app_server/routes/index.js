@@ -3,7 +3,7 @@ var controllers = require('../controllers');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', controllers.main);
+router.get('/', controllers.home);
 
 router.get('/travel', controllers.travel)
 

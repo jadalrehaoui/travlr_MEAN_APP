@@ -4,18 +4,28 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var hbs = require('hbs');
+
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
 
 var app = express();
 
+require('./app_server/models/mongodb.js')
+
+var handlebars = require('express-handlebars').create({
+  layoutsDir: path.join(__dirname, 'app_server', 'views/layouts'),
+  partialDir: path.join(__dirname, 'app_server', 'views/partials'),
+  defaultLayout: 'layout',
+  extname: 'hbs'
+});
+app.engine('hbs', handlebars.engine);
+app.set('view engine', 'hbs');
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
-// register views/partials
-hbs.registerPartials(path.join(__dirname, 'app_server', 'views/partials'));
-hbs.registerPartials(path.join(__dirname, 'app_server', 'views/layouts'));
+
+
 // set view engine to hbs (Handlebars)
-app.set('view engine', 'hbs');
+
 
 app.use(logger('dev'));
 app.use(express.json());
