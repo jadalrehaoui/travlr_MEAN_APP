@@ -31,6 +31,21 @@ The ```routes/index.js``` file holds all the routes we have right now, it import
 
 The ```views``` are files of type hbs (Handlebars), personally I would prefer ```ejs``` as it is easier and has more functionality. 
 
+## A challenge I went through
+In order to have multiple layouts, I created a folder named layouts and copied the layout file to it. 
+Then I installed ```express-handlebars``` like so ```npm install --save express-handlebars```
+and I updated the [app.js](https://github.com/jadalrehaoui/travlr_MEAN_APP/blob/main/app.js) with this code 
+````js
+
+var handlebars = require('express-handlebars').create({
+  layoutsDir: path.join(__dirname, 'app_server', 'views/layouts'),
+  partialDir: path.join(__dirname, 'app_server', 'views/partials'),
+  defaultLayout: 'layout',
+  extname: 'hbs'
+});
+app.engine('hbs', handlebars.engine);
+````
+
 The ```layout.hbs``` is the theme, or we can say the header and footer of each page.
 * I added ```partials``` to the views and separated the header and footer to have a cleaner code.
 
@@ -46,7 +61,7 @@ Mongoose will serve as a connector and defining the schemas as well as a driver 
 - If you don't have MongoDB installed on your machine you can start a free mongodb instance from [Mongodb](mongodb.com)
 - Or you can install mongodb on your machine from [Download Mongo DB](https://www.mongodb.com/try/download/community-kubernetes-operator) and run it as a deamon on your machine.
 
-Then we can start defining the schemas, refer to ```app_server/models/schemas``` where I have the schemas
+Then we can start defining the schemas, refer to [schemas](https://github.com/jadalrehaoui/travlr_MEAN_APP/tree/main/app_server/models/schemas) where I have the schemas
 
 An example of a schema :
 ````js
@@ -66,7 +81,7 @@ Connecting to mongodb, we need a connection string
 - if you're getting your mongodb from a cloud server you can get the connection string from mongodb website
 - if you're running mongodb locally the connection string will look like this ```mongodb://127.0.0.1```
 
-To connect to mongodb from the express server refer to the file ```mongodb.js``` in ```app_server/models```
+To connect to mongodb from the express server refer to the file [mongodb.js](https://github.com/jadalrehaoui/travlr_MEAN_APP/blob/main/app_server/models/mongodb.js) in [models](https://github.com/jadalrehaoui/travlr_MEAN_APP/tree/main/app_server/models)
 ````js
 const mongoose = require('mongoose');
 const host = process.env.DB_HOST || '127.0.0.1'; // checking env if production || dev
@@ -106,8 +121,8 @@ mongoose.connection.on('error', err => {
     console.log(`✕ MongoDB Error\n${err}`);
 });
 ````
-
-Then to feed the database with data from the data file (fake data) we can use the custom function I implemented in the ```models/mongodb.js``` at the bottom
+# Feeding the database with fake data
+Then to feed the database with data from the data file (fake data) we can use the custom function I implemented in the [mongodb.js](https://github.com/jadalrehaoui/travlr_MEAN_APP/blob/main/app_server/models/mongodb.js) at the bottom
 
 This code will feed the database with the respective data and collections
 
@@ -149,6 +164,11 @@ insertMeals().then( (err) => {
     if(!err) console.log('✓ meals were inserted');
 })
 ````
+Finally update [app.js](https://github.com/jadalrehaoui/travlr_MEAN_APP/blob/main/app.js) with this code
+````js
+require('./app_server/models/mongodb.js')
+````
+
 
 
  
